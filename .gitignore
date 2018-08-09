@@ -24,3 +24,10 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore secrets
+/config/secrets.yml
+/config/credentials.yml
+
+# Ignore IDE items
+.idea/*
