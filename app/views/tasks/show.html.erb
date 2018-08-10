@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @task.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<p>
+  <strong>Starts at:</strong>
+  <%= @task.starts_at %>
+</p>
+
+<p>
+  <strong>Ends at:</strong>
+  <%= @task.ends_at %>
+</p>
+
+<p>
+  <strong>Num reviewed artifacts:</strong>
+  <%= @task.num_reviewed_artifacts %>
+</p>
+
+<p>
+  <strong>Include self review:</strong>
+  <%= @task.include_self_review %>
+</p>
+
+<p>
+  <strong>Archived:</strong>
+  <%= @task.archived %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
