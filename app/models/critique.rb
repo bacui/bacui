@@ -1,0 +1,2 @@
+class Critique < ApplicationRecord
+end
