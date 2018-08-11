@@ -1,0 +1,2 @@
+class ReviewMapping < ApplicationRecord
+end
