@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_11_034233) do
+ActiveRecord::Schema.define(version: 2018_08_15_022727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 2018_08_11_034233) do
     t.index ["task_id"], name: "index_questions_on_task_id"
   end
 
+  create_table "review_mappings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "assessor_actor_id"
+    t.bigint "assessee_actor_id"
+    t.index ["assessee_actor_id"], name: "index_review_mappings_on_assessee_actor_id"
+    t.index ["assessor_actor_id"], name: "index_review_mappings_on_assessor_actor_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -91,5 +100,7 @@ ActiveRecord::Schema.define(version: 2018_08_11_034233) do
 
   add_foreign_key "critiques", "questions"
   add_foreign_key "questions", "tasks"
+  add_foreign_key "review_mappings", "actors", column: "assessee_actor_id"
+  add_foreign_key "review_mappings", "actors", column: "assessor_actor_id"
   add_foreign_key "tasks", "courses"
 end
