@@ -56,3 +56,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # For user model and log in/out feature
 gem 'devise', '~> 4.2'
+
+# For authorization
+gem 'petergate', '~> 1.7'
