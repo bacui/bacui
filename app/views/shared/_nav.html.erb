@@ -1,5 +1,7 @@
 <div>
   <div><%= link_to "Home", root_path %></div>
+  <div><%= link_to "Manage tasks", instructor_tasks_list_path if logged_in?(:instructor, :admin, :instructor_pending)%></div>
+  <div><%= link_to "Tasks", student_tasks_list_path if logged_in?(:student)%></div>
   <div><%= link_to "About", about_path %></div>
   <div><%= link_to "Contact", contact_admin_path %></div>
 </div>
