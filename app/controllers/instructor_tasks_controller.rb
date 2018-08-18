@@ -1,5 +1,5 @@
 class InstructorTasksController < ApplicationController
-  access instructor: [:list], admin: :all
+  access instructor: [:list], instructor_pending: [:list], admin: :all
 
   def list
     
