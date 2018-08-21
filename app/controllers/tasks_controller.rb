@@ -15,6 +15,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @task.course_id = params[:course_id]
   end
 
   # GET /tasks/1/edit
@@ -69,6 +70,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :starts_at, :ends_at, :num_reviewed_artifacts, :include_self_review, :archived)
+      params.require(:task).permit(:title, :description, :starts_at, :ends_at, :num_reviewed_artifacts, :include_self_review, :archived, :course_id, :team_size)
     end
 end

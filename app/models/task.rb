@@ -1,4 +1,4 @@
 class Task < ApplicationRecord
-  validates_presence_of :title, :num_reviewed_artifacts, :team_size
+  validates_presence_of :title, :course_id
   belongs_to :course
 end

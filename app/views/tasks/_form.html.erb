@@ -16,6 +16,8 @@
     <%= form.text_field :title %>
   </div>
 
+  <%= hidden_field_tag "task[course_id]", @task.course_id %>
+
   <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description %>
@@ -50,3 +52,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+
