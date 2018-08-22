@@ -17,12 +17,12 @@
         <td><%= link_to 'Show', course %></td>
         <td><%= link_to 'Edit', edit_course_path(course) %></td>
         <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'New Task', :controller => "tasks", :action => "new", :course_id => course.id %></td>
+        <td><%= link_to 'New Submission Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"SubmissionTask" %></td>
       </tr>
       <% tasks = course.tasks %>
       <% tasks.each do |task| %>
         <tr>
-          <td><%= task.title %><td>
+          <td><%= task.inspect %><td>
         </tr>
       <% end %>
     <% end %>

@@ -14,8 +14,10 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
+    #@task = params[:type].constantize.new
     @task = Task.new
     @task.course_id = params[:course_id]
+    @task.type = params[:type]
   end
 
   # GET /tasks/1/edit
@@ -29,11 +31,9 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
+        format.html {redirect_to({controller: "instructor_tasks", action: "list"}, notice: 'Task was successfully created.')}
       else
         format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,6 +70,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :starts_at, :ends_at, :num_reviewed_artifacts, :include_self_review, :archived, :course_id, :team_size)
+      params.require(:task).permit(:title, :description, :starts_at, :ends_at, :num_reviewed_artifacts, :include_self_review, :archived, :course_id, :team_size, :type)
     end
 end
