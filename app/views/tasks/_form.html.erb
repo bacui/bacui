@@ -1,3 +1,5 @@
+<%= @task.inspect %>
+
 <%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
@@ -20,7 +22,7 @@
   <%= hidden_field_tag "task[type]", @task.type %>
   <%= hidden_field_tag "task[reviewed_task_id]", @task.reviewed_task_id %>
 
-  <% if @task.type == "ReviewTask" %>
+  <% if @task.instance_of? ReviewTask %>
     <div class="field">
       <%= form.label :num_reviewed_artifacts %>
       <%= form.text_field :num_reviewed_artifacts %>

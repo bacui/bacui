@@ -14,8 +14,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    #@task = Object.const_get(params[:type]).new
-    @task = Task.new
+    @task = Object.const_get(params[:type]).new
+    #@task = Task.new
     @task.course_id = params[:course_id]
     @task.type = params[:type]
     @task.reviewed_task_id = params[:reviewed_task_id]
