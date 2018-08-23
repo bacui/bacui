@@ -19,10 +19,11 @@
         <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'New Submission Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"SubmissionTask" %></td>
       </tr>
-      <% tasks = course.tasks %>
+      <% tasks = course.submission_tasks %>
       <% tasks.each do |task| %>
         <tr>
           <td><%= task.inspect %><td>
+          <td><%= link_to 'New Review Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"SubmissionTask" %>></td>
         </tr>
       <% end %>
     <% end %>

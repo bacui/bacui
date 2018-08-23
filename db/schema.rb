@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_22_161556) do
+ActiveRecord::Schema.define(version: 2018_08_23_031332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2018_08_22_161556) do
     t.integer "team_size", default: 1
     t.bigint "course_id"
     t.string "type"
+    t.bigint "reviewed_task_id"
     t.index ["course_id"], name: "index_tasks_on_course_id"
   end
 
