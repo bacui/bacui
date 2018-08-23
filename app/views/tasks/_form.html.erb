@@ -18,6 +18,22 @@
 
   <%= hidden_field_tag "task[course_id]", @task.course_id %>
   <%= hidden_field_tag "task[type]", @task.type %>
+  <%= hidden_field_tag "task[reviewed_task_id]", @task.reviewed_task_id %>
+
+  <% if @task.type == "ReviewTask" %>
+    <div class="field">
+      <%= form.label :num_reviewed_artifacts %>
+      <%= form.text_field :num_reviewed_artifacts %>
+    </div>
+
+    <div class="field">
+      <%= form.label :include_self_review %>
+      <%= form.check_box :include_self_review %>
+    </div>
+  <% else %>
+    <%= hidden_field_tag "task[num_reviewed_artifacts]", @task.num_reviewed_artifacts %>
+    <%= hidden_field_tag "task[include_self_review]", @task.include_self_review %>
+  <% end %>
 
   <div class="field">
     <%= form.label :description %>
@@ -32,16 +48,6 @@
   <div class="field">
     <%= form.label :ends_at %>
     <%= form.datetime_select :ends_at %>
-  </div>
-
-  <div class="field">
-    <%= form.label :num_reviewed_artifacts %>
-    <%= form.text_field :num_reviewed_artifacts %>
-  </div>
-
-  <div class="field">
-    <%= form.label :include_self_review %>
-    <%= form.check_box :include_self_review %>
   </div>
 
   <div class="field">

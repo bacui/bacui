@@ -14,10 +14,11 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    #@task = params[:type].constantize.new
+    #@task = Object.const_get(params[:type]).new
     @task = Task.new
     @task.course_id = params[:course_id]
     @task.type = params[:type]
+    @task.reviewed_task_id = params[:reviewed_task_id]
   end
 
   # GET /tasks/1/edit
@@ -70,6 +71,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :starts_at, :ends_at, :num_reviewed_artifacts, :include_self_review, :archived, :course_id, :team_size, :type)
+      params.require(:task).permit(:title, :description, :starts_at, :ends_at, :num_reviewed_artifacts, :include_self_review, :archived, :course_id, :team_size, :type, :reviewed_task_id)
     end
 end
