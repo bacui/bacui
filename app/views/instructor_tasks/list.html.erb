@@ -22,7 +22,7 @@
       <% tasks = course.submission_tasks %>
       <% tasks.each do |task| %>
         <tr bgcolor="#ffffe0">
-          <td><%= link_to task.title, edit_task_path(task) %><td>
+          <td><%= link_to task.title, edit_task_path(task) %></td>
           <%if task.review_tasks.empty? %>
             <td><%= link_to 'New Review Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"ReviewTask", :reviewed_task_id => task.id %></td>
           <% else %>
