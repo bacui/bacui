@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'questions/edit_questionnaire'
   get 'instructor_tasks/list'
   get 'student_tasks/list'
   get 'about', to: 'pages#about'

@@ -27,6 +27,7 @@
             <td><%= link_to 'New Review Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"ReviewTask", :reviewed_task_id => task.id %></td>
           <% else %>
             <td> <%= link_to task.review_tasks.first.title, edit_task_path(task.review_tasks.first)%></td>
+            <td> <%= link_to "Edit Review Rubric", questions_edit_questionnaire_path(:review_task_id => task.review_tasks.first.id)%></td>
           <% end %>
         </tr>
       <% end %>
