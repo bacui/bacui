@@ -16,6 +16,7 @@
         <td><%= link_to 'Edit', edit_course_path(course) %></td>
         <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'New Submission Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"SubmissionTask" %></td>
+        <td><%= link_to 'Manage Participants', courses_list_users_path(:id => course.id) %></td>
       </tr>
       <% tasks = course.submission_tasks %>
       <% tasks.each do |task| %>

@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :list_users]
 
   # GET /courses
   # GET /courses.json
@@ -57,7 +57,7 @@ class CoursesController < ApplicationController
   end
 
   def list_users
-
+    @users = @course.users
   end
 
   private
