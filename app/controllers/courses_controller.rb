@@ -33,8 +33,6 @@ class CoursesController < ApplicationController
         format.html { render :new }
       end
     end
-
-
   end
 
   # PATCH/PUT /courses/1
@@ -56,6 +54,10 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to({controller: "instructor_tasks", action: "list"}, notice: 'Course was successfully destroyed.') }
     end
+  end
+
+  def list_users
+
   end
 
   private
