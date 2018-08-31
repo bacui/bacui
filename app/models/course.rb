@@ -1,6 +1,8 @@
 class Course < ApplicationRecord
   validates_presence_of :title
   has_many :tasks
+  has_many :user_courses
+  has_many :users, through: :user_courses
 
   def submission_tasks
     # found = []
