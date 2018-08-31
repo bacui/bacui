@@ -60,6 +60,11 @@ class CoursesController < ApplicationController
     @users = @course.users
   end
 
+  def add_user
+    @users = @course.users
+    render courses_list_users_path(:id => course.id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course

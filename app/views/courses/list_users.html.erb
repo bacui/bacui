@@ -17,6 +17,13 @@
       </tr>
     <% end %>
   <tbody>
+
+  <%= form_tag "add_user", :method => "post", :class => "form-inline" do  %>
+    Enter a user's registered Email: <%= text_field :user, :email, {:size => 20} %>
+    <%= hidden_field_tag "course_id", @course.id%>
+    <input id="add" type="submit" value="add">
+  <% end %>
+
 </table>
 
 
