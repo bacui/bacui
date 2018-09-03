@@ -61,20 +61,23 @@ class CoursesController < ApplicationController
   end
 
   def add_user
-    if !@course
-      format.html { redirect_to({controller: "instructor_tasks", action: "list"}, alert: 'Cannot find the courses.')}
+    respond_to do |format|
+      if !@course
+        format.html { redirect_to({controller: "instructor_tasks", action: "list"}, alert: 'Cannot find the courses.')}
+      end
+
+      user = User.where(email: params["user"]["email"]).first
+      if !user
+        format.html { redirect_to({controller: "instructor_tasks", action: "list"}, alert: ('Cannot find user '+ params["user"]["email"])) }
+      end
+
+      new_user_course = UserCourse.create(user_id: user.id, course_id: @course.id)
+      if new_user_course.save
+        format.html { redirect_to({controller: "instructor_tasks", action: "list"}, notice: (user.first_name + ' '+ user.last_name + ' has been added successfully.')) }
+        #format.html { redirect_to({controller: "courses", action: "add_user"}, notice: (user.first_name + ' '+ user.last_name + 'had been added successfully.'))}
+      end
     end
 
-    user = User.where(email: params["user"]["email"]).first
-    if !user
-
-    end
-
-    new_user_course = UserCourse.create(user_id: user.id, course_id: @course.id)
-    if new_user_course.save
-      #format.html { redirect_to({controller: "instructor_tasks", action: "list"}, notice: 'Course was successfully updated.') }
-      format.html { redirect_to({controller: "courses", action: "add_user"}, notice: (user.first_name + ' '+ user.last_name + 'had been added successfully.'))}
-    end
   end
 
   private
