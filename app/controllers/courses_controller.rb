@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :list_users]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :list_users, :add_user]
 
   # GET /courses
   # GET /courses.json
@@ -61,8 +61,20 @@ class CoursesController < ApplicationController
   end
 
   def add_user
-    @users = @course.users
-    render courses_list_users_path(:id => course.id)
+    if !@course
+      format.html { redirect_to({controller: "instructor_tasks", action: "list"}, alert: 'Cannot find the courses.')}
+    end
+
+    user = User.where(email: params["user"]["email"]).first
+    if !user
+
+    end
+
+    new_user_course = UserCourse.create(user_id: user.id, course_id: @course.id)
+    if new_user_course.save
+      #format.html { redirect_to({controller: "instructor_tasks", action: "list"}, notice: 'Course was successfully updated.') }
+      format.html { redirect_to({controller: "courses", action: "add_user"}, notice: (user.first_name + ' '+ user.last_name + 'had been added successfully.'))}
+    end
   end
 
   private
