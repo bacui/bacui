@@ -1,5 +1,7 @@
 class StudentTasksController < ApplicationController
-  def list
+  access student: [:list], admin: :all
 
+  def list
+    @courses = current_user.courses
   end
 end
