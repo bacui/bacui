@@ -62,19 +62,26 @@ class CoursesController < ApplicationController
 
   def add_user
     respond_to do |format|
-      if !@course
+      if @course.nil?
         format.html { redirect_to({controller: "instructor_tasks", action: "list"}, alert: 'Cannot find the courses.')}
       end
 
-      user = User.where(email: params["user"]["email"]).first
-      if !user
-        format.html { redirect_to({controller: "instructor_tasks", action: "list"}, alert: ('Cannot find user '+ params["user"]["email"])) }
-      end
+      begin
+        user = User.where(email: params["user"]["email"]).first
 
-      new_user_course = UserCourse.create(user_id: user.id, course_id: @course.id)
-      if new_user_course.save
-        format.html { redirect_to({controller: "instructor_tasks", action: "list"}, notice: (user.first_name + ' '+ user.last_name + ' has been added successfully.')) }
-        #format.html { redirect_to({controller: "courses", action: "add_user"}, notice: (user.first_name + ' '+ user.last_name + 'had been added successfully.'))}
+        new_user_course = UserCourse.create(user_id: user.id, course_id: @course.id)
+        if user.nil?
+          error_message = "No such user with email: " + params["user"]["email"]
+        elsif new_user_course.save
+          format.html { redirect_to({controller: "courses", action: "list_users", id: @course.id}, notice: (user.first_name + ' '+ user.last_name + ' has been added successfully.')) }
+          # if the save does not work, the db will roll back without raising an error
+        else
+          error_message = user.first_name + ' '+ user.last_name + ' is already in this course.'
+          # raise an error to be caught in the rescue block
+          raise "error"
+        end
+      rescue
+        format.html { redirect_to({controller: "courses", action: "list_users", id: @course.id}, alert: error_message) }
       end
     end
 
