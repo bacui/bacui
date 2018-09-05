@@ -5,6 +5,10 @@
   <thead>
   <tr>
     <th>Course title</th>
+    <th>Task type</th>
+    <th>Task title</th>
+    <th>Due at</th>
+    <th>Action</th>
     <th colspan="3"></th>
   </tr>
   </thead>
@@ -12,8 +16,22 @@
   <% @courses.each do |course| %>
     <tr>
       <td><%=course.title %></td>
-
     </tr>
+    <%course.tasks.each do |task| %>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <%=task.title %>
+        </td>
+        <td>
+          <%=task.type %>
+        </td>
+        <td>
+          <%=task.ends_at %>
+        </td>
+      <tr>
+    <% end %>
   <% end %>
   </tbody>
 </table>
