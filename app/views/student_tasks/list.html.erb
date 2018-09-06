@@ -30,6 +30,18 @@
         <td>
           <%=task.ends_at %>
         </td>
+        <td>
+          <% if task.is_a? SubmissionTask %>
+            <% if task.team_size>1 %>
+              Your team
+            <% end %>
+            Your work
+          <% else %>
+            Artifacts to review
+            Submit your review
+          <% end %>
+        </td>
+      </tr>
       <tr>
     <% end %>
   <% end %>
