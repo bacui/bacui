@@ -34,6 +34,10 @@
   <% else %>
     <%= hidden_field_tag "task[num_reviewed_artifacts]", @task.num_reviewed_artifacts %>
     <%= hidden_field_tag "task[include_self_review]", @task.include_self_review %>
+    <div class="field">
+      <%= form.label :team_size %>
+      <%= form.select(:team_size, options_for_select([1, 2, 3, 4, 5], @task.num_reviewed_artifacts)) %>
+    </div>
   <% end %>
 
   <div class="field">
