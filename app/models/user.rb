@@ -16,4 +16,18 @@ class User < ApplicationRecord
 
   has_many :user_courses
   has_many :courses, through: :user_courses
+  has_many :actors_users
+  has_many :actors, through: :actors_users
+
+  def actor_by_task(task_id, type)
+    # Argument "type" can be either Author or Reviewer
+    # Returns an actor obj. if the user is a member of an actor of the task with the specified type,
+    # otherwise return nil
+    self.actors.each do |actor|
+      if actor.is_a? type and actor.task_id == task_id
+        return actor
+      end
+    end
+    return nil
+  end
 end
