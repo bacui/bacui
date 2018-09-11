@@ -1,7 +1,8 @@
 class ActorsController < ApplicationController
-  access instructor: [:all], instructor_pending: [:all], admin: :all, student: [:all]
+  access instructor: :all, instructor_pending: :all, admin: :all, student: :all
   def new
     @actor = Actor.new
+    @actor.task_id = params[:task_id]
   end
 
   def create
