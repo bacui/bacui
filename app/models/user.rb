@@ -24,7 +24,7 @@ class User < ApplicationRecord
     # Returns an actor obj. if the user is a member of an actor of the task with the specified type,
     # otherwise return nil
     self.actors.each do |actor|
-      if actor.is_a? type and actor.task_id == task_id
+      if actor.task.is_a? type and actor.task_id == task_id
         return actor
       end
     end
