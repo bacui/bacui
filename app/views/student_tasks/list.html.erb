@@ -33,8 +33,9 @@
         <td>
           <% if task.is_a? SubmissionTask %>
             <% if task.team_size>1 %>
-              <%= link_to "Your team", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !current_user.actor_by_task(task.id, SubmissionTask) %>
-              <%= link_to "Your team", edit_actor_path if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
+              <% actor_for_submission_task = current_user.actor_by_task(task.id, SubmissionTask) %>
+              <%= link_to "Your team1", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
+              <%= link_to "Your team2", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
             <% end %>
             Your work
           <% else %>
