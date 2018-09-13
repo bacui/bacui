@@ -1,5 +1,5 @@
 class ActorsController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_actor, only: [:show, :edit, :update, :destroy]
   access instructor: :all, instructor_pending: :all, admin: :all, student: :all
   def new
     @actor = Actor.new
@@ -19,6 +19,19 @@ class ActorsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @actor.update(actor_params)
+        format.html { redirect_to({controller: "student_tasks", action: "list"}, notice: 'Team was successfully updated.') }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_actor
@@ -27,6 +40,6 @@ class ActorsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def actor_params
-    params.require(:actor).permit(:title, :task_id)
+    params.require(:actor).permit(:name, :task_id)
   end
 end
