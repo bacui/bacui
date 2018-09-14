@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'courses/list_users'
   post 'courses/add_user'
   get 'student_tasks/list'
+  post 'actors/add_member'
   get 'about', to: 'pages#about'
   get 'contact_admin', to: 'pages#contact'
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }

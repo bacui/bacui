@@ -1,5 +1,5 @@
 class ActorsController < ApplicationController
-  before_action :set_actor, only: [:show, :edit, :update, :destroy]
+  before_action :set_actor, only: [:show, :edit, :update, :destroy, :add_member]
   access instructor: :all, instructor_pending: :all, admin: :all, student: :all
   def new
     @actor = Actor.new
@@ -30,6 +30,11 @@ class ActorsController < ApplicationController
         format.html { render :edit }
       end
     end
+  end
+
+  def add_member
+
+    redirect_to edit_actors_path @actor
   end
 
   private
