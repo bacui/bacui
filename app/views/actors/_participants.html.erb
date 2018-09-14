@@ -1,0 +1,26 @@
+<b>Team member(s)</b>
+<table style="width:80%" align="center" >
+  <tr >
+    <th class="head">Full name</th>
+    <th class="head">Email address</th>
+  </tr>
+  <% for member in @actor.users %>
+    <tr>
+      <td><%= member.full_name %></td>
+      <td><%= member.email %></td>
+    </tr>
+  <% end %>
+</table>
+
+<b>Invite people</b>
+<%= form_tag :controller => 'actors', :action => 'add_member' do %>
+  <%= hidden_field_tag 'id', @actor.id %>
+  <table style="width:80%" align="center" >
+    <tr>
+      <td>
+        Enter user login: <%= text_field :user, :email, {:size => 41} %>
+        <input type='submit' value='Invite'/>
+      </td>
+    </tr>
+  </table>
+<% end %>
