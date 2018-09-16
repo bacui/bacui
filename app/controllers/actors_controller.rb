@@ -34,22 +34,21 @@ class ActorsController < ApplicationController
 
   def add_member
     respond_to do |format|
-      #flash[:note] = "You have already sent an invitation to \"#{@user.name}\"."
-      byebug
       user_to_add = User.where(email: params[:user][:email]).first
-      byebug
 
       if user_to_add.nil?
         format.html { redirect_to({controller: "actors", action: "edit", id: @actor.id}, notice: "\"#{params[:user][:email]}\" does not exist") }
       elsif @actor.users.include?(user_to_add)
         format.html { redirect_to({controller: "actors", action: "edit", id: @actor.id}, notice: "\"#{params[:user][:email]}\" is already in your team") }
-      elsif
-        user_to_add.actor_by_task(@actor.task_id, SubmissionTasks)
+      elsif not Course.find(Task.find(@actor.task_id).course_id).users.include?(user_to_add)
+        format.html { redirect_to({controller: "actors", action: "edit", id: @actor.id}, notice: "\"#{params[:user][:email]}\" is not enrolled in this course") }
+      elsif not user_to_add.actor_by_task(@actor.task_id, SubmissionTask).nil?
+        format.html { redirect_to({controller: "actors", action: "edit", id: @actor.id}, notice: "\"#{params[:user][:email]}\" is already in a team in this task") }
       end
 
 
 
-      format.html { redirect_to({controller: "actors", action: "edit", id: @actor.id}, error_explanation: 'hahaha') }
+      format.html { redirect_to({controller: "actors", action: "edit", id: @actor.id}, notice: 'hahaha') }
     end
 
   end
