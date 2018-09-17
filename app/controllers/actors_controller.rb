@@ -44,6 +44,8 @@ class ActorsController < ApplicationController
         format.html { redirect_to({controller: "actors", action: "edit", id: @actor.id}, notice: "\"#{params[:user][:email]}\" is not enrolled in this course") }
       elsif not user_to_add.actor_by_task(@actor.task_id, SubmissionTask).nil?
         format.html { redirect_to({controller: "actors", action: "edit", id: @actor.id}, notice: "\"#{params[:user][:email]}\" is already in a team in this task") }
+      else
+        ActorsUser.create(actor_id: @actor.id, user_id: user_to_add.id)
       end
 
 
