@@ -1,5 +1,7 @@
 class ArtifactsController < ApplicationController
   access instructor: :all, instructor_pending: :all, admin: :all, student: :all
+  before_action :set_artifact, only: [:show, :edit, :update, :destroy]
+
   def new
     @artifact = Artifact.new
     @artifact.author_actor_id = params[:author_actor_id]
@@ -12,6 +14,19 @@ class ArtifactsController < ApplicationController
         format.html {redirect_to({controller: "student_tasks", action: "list"}, notice: 'Artifact was successfully created.')}
       else
         format.html { render :new }
+      end
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @artifact.update(artifact_params)
+        format.html { redirect_to({controller: "student_tasks", action: "list"}, notice: 'Artifact was successfully updated.') }
+      else
+        format.html { render :edit }
       end
     end
   end
