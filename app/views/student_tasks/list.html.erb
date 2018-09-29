@@ -37,7 +37,11 @@
               <%= link_to "Your team1", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
               <%= link_to "Your team2", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
             <% end %>
-            <%= link_to "Your work1", new_artifact_path(:author_actor_id =>actor_for_submission_task.id) if logged_in?(:student) and actor_for_submission_task %>
+            <% if logged_in?(:student) and actor_for_submission_task.artifacts.empty? %>
+              <%= link_to "Your work1", new_artifact_path(:author_actor_id =>actor_for_submission_task.id) %>
+            <% elsif logged_in?(:student) and not actor_for_submission_task.artifacts.empty? %>
+              <%= link_to "Your work1", edit_artifact_path(actor_for_submission_task.artifacts.first ,:author_actor_id =>actor_for_submission_task.id) %>
+            <% end %>
           <% else %>
             Artifacts to review
             Submit your review
