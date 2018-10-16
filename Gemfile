@@ -61,4 +61,4 @@ gem 'devise', '~> 4.2'
 gem 'petergate', '~> 1.7'
 
 # For rich text editor
-gem 'trix', git: 'https://github.com/bcoia/trix.git'
+gem 'trix-rails', require: 'trix'
