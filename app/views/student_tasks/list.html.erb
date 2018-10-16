@@ -34,16 +34,16 @@
           <% if task.is_a? SubmissionTask %>
             <% actor_for_submission_task = current_user.actor_by_task(task.id, SubmissionTask) %>
             <% if task.team_size>1 %>
-              <%= link_to "Your team1", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
-              <%= link_to "Your team2", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
+              <%= link_to "Your team", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
+              <%= link_to "Your team", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
             <% else %>
-              <%= link_to "Your submitter profile1", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
-              <%= link_to "Your submitter profile2", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
+              <%= link_to "Your submitter profile", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
+              <%= link_to "Your submitter profile", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
             <% end %>
             <% if logged_in?(:student) and actor_for_submission_task and actor_for_submission_task.artifacts.empty? %>
-              <%= link_to "Your work1", new_artifact_path(:author_actor_id =>actor_for_submission_task.id) %>
+              <%= link_to "Your work", new_artifact_path(:author_actor_id =>actor_for_submission_task.id) %>
             <% elsif logged_in?(:student) and actor_for_submission_task and not actor_for_submission_task.artifacts.empty? %>
-              <%= link_to "Your work1", edit_artifact_path(actor_for_submission_task.artifacts.first ,:author_actor_id =>actor_for_submission_task.id) %>
+              <%= link_to "Your work", edit_artifact_path(actor_for_submission_task.artifacts.first ,:author_actor_id =>actor_for_submission_task.id) %>
             <% end %>
           <% else %>
             Artifacts to review
