@@ -62,3 +62,6 @@ gem 'petergate', '~> 1.7'
 
 # For rich text editor
 gem 'trix-rails', require: 'trix'
+
+# Dumping the current db to seed.rb
+gem 'seed_dump'
