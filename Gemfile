@@ -65,3 +65,6 @@ gem 'trix-rails', require: 'trix'
 
 # Dumping the current db to seed.rb
 gem 'seed_dump'
+
+# Boostrap
+gem 'bootstrap', '~> 4.1.3'
