@@ -1,0 +1,14 @@
+<header class="masthead mb-auto">
+  <div class="inner">
+    <h3 class="masthead-brand">Bacui</h3>
+    <nav class="nav nav-masthead justify-content-center">
+      <%= link_to "Home", root_path, class: "nav-link active"%>
+      <%= link_to "Manage tasks", instructor_tasks_list_path, class: "nav-link" if logged_in?(:instructor, :admin, :instructor_pending)%>
+      <% if logged_in?(:student) %>
+        <%= link_to "Tasks", student_tasks_list_path, class: "nav-link"%>
+      <% end %>
+      <%= link_to "About", about_path, class: "nav-link" %>
+      <%= link_to "Contact", contact_admin_path, class: "nav-link" %>
+    </nav>
+  </div>
+</header>
