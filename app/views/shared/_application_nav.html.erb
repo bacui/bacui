@@ -3,7 +3,7 @@
     <h3 class="masthead-brand">Bacui</h3>
     <nav class="nav nav-masthead justify-content-center">
       <%= link_to "Home", root_path, class: "nav-link active"%>
-      <%= link_to "Admin Panel", instructor_tasks_list_path, class: "nav-link" if logged_in?(:admin)%>
+      <%= link_to "Admin Panel", admin_panel_index_path, class: "nav-link" if logged_in?(:admin)%>
       <%= link_to "Manage tasks", instructor_tasks_list_path, class: "nav-link" if logged_in?(:instructor, :admin, :instructor_pending)%>
       <% if logged_in?(:student) %>
         <%= link_to "Tasks", student_tasks_list_path, class: "nav-link"%>
