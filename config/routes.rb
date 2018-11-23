@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  get 'admin_panel/admin_panel'
   get 'admin_panel/index'
   get 'admin_panel/users'
   get 'admin_panel/pending_instructors'
+  post 'admin_panel/approve_pending_instructor'
   get 'questions/edit_questionnaire'
   get 'instructor_tasks/list'
   get 'student_tasks/list'
