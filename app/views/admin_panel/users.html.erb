@@ -1,2 +1,37 @@
-<h1>AdminPanel#users</h1>
-<p>Find me in app/views/admin_panel/users.html.erb</p>
+<h1>Users</h1>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <td>#</td>
+    <td>First Name</td>
+    <td>Last Name</td>
+    <td>Email</td>
+    <td>Role</td>
+  </tr>
+  </thead>
+  <tbody>
+    <% @users.each_with_index do |user, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td>
+          <% if user.role == :admin %>
+            <%= 'Administrator' %>
+          <% elsif user.role == :instructor %>
+            <%= 'Instructor' %>
+          <% elsif user.role == :instructor_pending %>
+            <%= 'Instructor (Pending)' %>
+          <% else %>
+            <%= 'Student' %>
+          <%end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @users, :class => "page-item" %>
+<%= link_to 'Back', admin_panel_index_path %>
+
+
