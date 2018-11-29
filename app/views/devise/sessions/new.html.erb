@@ -1,14 +1,18 @@
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="field input-group">
+    <div class= "input-group-prepend">
+      <span class = "input-group-text" >Email &nbsp; &nbsp; &nbsp;</span>
+    </div>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="field input-group">
+    <div class= "input-group-prepend">
+      <span class = "input-group-text" >Password</span>
+    </div>
+    <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
   </div>
 
   <% if devise_mapping.rememberable? -%>
@@ -19,8 +23,8 @@
   <% end -%>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+    <%= f.submit "Log in",:class => 'btn btn-info' %>
+  </div><br />
 <% end %>
 
 <%= render "devise/shared/links" %>
