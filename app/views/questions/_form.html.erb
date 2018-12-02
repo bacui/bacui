@@ -1,0 +1,72 @@
+<%= form_with(model: question, local: true) do |form| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+        <% question.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :question_name %>
+    <%= form.text_field :question_name %>
+  </div>
+  <div class="field">
+    <%= form.label :questions_type %>
+    <%= form.select(:questions_type, options_for_select(['Nominal', 'Textual Feedback'])) %>
+  </div>
+
+  <h2>Nomination Questions:</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% Question.all.map {|quest| [quest.questions_type, quest.id] if quest.questions_type == "Nomination"}.each do |questionnaire| %>
+      <tr>
+        <td><%= questionnaire.title %></td>
+        <td><%= link_to 'Edit', questions_edit_questionnaire_path(questionnaire) %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <h2>Textual Feedback:</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+    </thead>
+
+  <tbody>
+  <% Question.all.map {|quest| [quest.questions_type, quest.id] if quest.questions_type == "Textual"}.each do |questionnaire| %>
+    <tr>
+      <td><%= questionnaire.title %></td>
+      <td><%= link_to 'Edit', questions_edit_questionnaire_path(questionnaire) %></td>
+      <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
