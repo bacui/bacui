@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   resources :courses
   resources :artifacts
   resources :actors
+  resources :questions do
+    collection do
+      patch :sort
+    end
+  end
 
   root to: 'pages#home'
 end

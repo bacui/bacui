@@ -1,7 +1,7 @@
 <%= render 'form', review_task: @review_task %>
 
 <br><br>
-<h5>Nomination Questions</h5>
+<!-- <h5>Nomination Questions</h5>
 <table class="table table-bordered">
   <thead class="thead-dark">
   <tr>
@@ -14,15 +14,15 @@
   <% questions = @questions.select{|x| x.qtype == 'nomination'}%>
   <% questions.each_with_index do | question, index | %>
     <tr>
-      <td><%= index + 1 %></td>
-      <td><%= question.description %></td>
+      <td><div id="questions"><%= index + 1 %></div></td>
+      <td><div id="questions"><%= question.description %></div></td>
     </tr>
   <% end %>
   </tbody>
 </table>
-<br>
+<
 
-<h5>Texual Feedback Questions</h5>
+<h5>Textual Feedback Questions</h5>
 <table class="table table-bordered">
   <thead class="thead-dark">
   <tr>
@@ -35,9 +35,22 @@
   <% questions = @questions.select{|x| x.qtype == 'textual_feedback'}%>
   <% questions.each_with_index do | question, index | %>
     <tr>
-      <td><%= index + 1 %></td>
-      <td><%= question.description %></td>
+      <td><div id="questions"><%= index + 1 %></div></td>
+      <td><div id="questions"><%= question.description %></div></td>
     </tr>
   <% end %>
   </tbody>
-</table>
+</table> -->
+<div id="questions" class="list-group" data-url="<%= sort_questions_path %>">
+  <h5>Nomination Questions</h5>
+  <% questions = @questions.select{|x| x.qtype == 'nomination'}%>
+  <% questions.each do | question | %>
+    <li class="list-group-item" id="<%= dom_id(question) %>"><%= question.description %></li>
+  <% end %>
+  <br>
+  <h5>Textual Feedback Questions</h5>
+  <% questions = @questions.select{|x| x.qtype == 'textual_feedback'}%>
+  <% questions.each do | question | %>
+    <li class="list-group-item" id="<%= dom_id(question) %>"><%= question.description %></li>
+  <% end %>
+</div>

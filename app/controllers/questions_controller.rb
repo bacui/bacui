@@ -1,9 +1,23 @@
 class QuestionsController < ApplicationController
-  access instructor: [:edit_questionnaire, :add_question], instructor_pending: [:edit_questionnaire, :add_question], admin: :all
+  access instructor: [:edit_questionnaire, :add_question, :sort], instructor_pending: [:edit_questionnaire, :add_question, :sort], admin: :all
 
   def edit_questionnaire
+    puts("In Edit Questionnaire")
     @questions = Question.where(task_id: params[:review_task_id])
+    @questions = @questions.order(:position)
     @review_task = ReviewTask.find(params[:review_task_id])
+  end
+
+  def sort
+    puts("Entered Sort function")
+    # respond_to do |format|
+      params[:question].each_with_index do |id, index|
+        puts("SortSortSortSortSortSortSortSortSortSortSortSortSortSortSortSortSort")
+        Question.where(id: id).update_all(position: index + 1)
+    #  end
+    end
+
+    head :ok
   end
 
   def add_question
