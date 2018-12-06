@@ -1,30 +1,6 @@
-<form action="">
-  <div class="container">
-    <div class="row mb-2 justify-content-center">
-      <div class="col-9">
-        <label for="description">Add new Question: </label>
-        <textarea type="text" name="description" id="description" class="form-control mr-md-4"></textarea>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-4">
-        <input type="radio" name="qtype" value="nomination" id="nomination" class="mr-md-4" />
-        <label for="nomination">Nomination</label>
-      </div>
-      <div class="col-4">
-        <input type="radio" name="qtype" value="textual_feedback" id="textual_feedback" class="mr-md-4" />
-        <label for="textual_feedback">Textual Feedback</label>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-4">
-        <button class="btn btn-secondary btn-block">Add</button>
-      </div>
-    </div>
-  </div>
-</form>
+<%= render 'form', review_task: @review_task %>
 
-<br>
+<br><br>
 <h5>Nomination Questions</h5>
 <table class="table table-bordered">
   <thead class="thead-dark">

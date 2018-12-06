@@ -1,72 +1,46 @@
-<%= form_with(model: question, local: true) do |form| %>
-  <% if question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
-      <ul>
-        <% question.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<%= form_tag :controller => 'questions', :action => 'add_question', :method => 'post' do %>
+  <div class="container">
+    <div class="row mb-2 justify-content-center">
+      <div class="col-6">
+        <br>
+        <h5>Add a new Question: </h5>
+        <label for="question_title">Title: </label>
+        <%= text_field_tag 'question[title]', '', required: true, class: 'form-control'%>
+        <br>
+        <label for="question_description">Description: </label>
+        <%= text_area_tag 'question[description]', nil, class: 'form-control mr-md-4', name: 'question[description]', required: true %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :question_name %>
-    <%= form.text_field :question_name %>
-  </div>
-  <div class="field">
-    <%= form.label :questions_type %>
-    <%= form.select(:questions_type, options_for_select(['Nominal', 'Textual Feedback'])) %>
-  </div>
-
-  <h2>Nomination Questions:</h2>
-
-  <table>
-    <thead>
-    <tr>
-      <th>Title</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% Question.all.map {|quest| [quest.questions_type, quest.id] if quest.questions_type == "Nomination"}.each do |questionnaire| %>
-      <tr>
-        <td><%= questionnaire.title %></td>
-        <td><%= link_to 'Edit', questions_edit_questionnaire_path(questionnaire) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
-  <h2>Textual Feedback:</h2>
-
-  <table>
-    <thead>
-    <tr>
-      <th>Title</th>
-    </tr>
-    </thead>
-
-  <tbody>
-  <% Question.all.map {|quest| [quest.questions_type, quest.id] if quest.questions_type == "Textual"}.each do |questionnaire| %>
-    <tr>
-      <td><%= questionnaire.title %></td>
-      <td><%= link_to 'Edit', questions_edit_questionnaire_path(questionnaire) %></td>
-      <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-  </tbody>
-  </table>
-
-
-  <div class="actions">
-    <%= form.submit %>
+    <div class="row justify-content-center">
+      <div class="col-3">
+        <%= radio_button_tag "question[qtype]", "nomination", checked = true, class: "mr-md-4" %>
+        <label for="question_qtype_nomination">Nomination</label>
+      </div>
+      <div class="col-3">
+        <%= radio_button_tag "question[qtype]", "textual_feedback", checked = false, class: "mr-md-4" %>
+        <label for="question_qtype_textual_feedback">Textual Feedback</label>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-3">
+        <label for="question_weight">Weight: </label>
+        <%= number_field_tag 'question[weight]', nil, min: 1, class: 'form-control', required: true %>
+      </div>
+      <div class="col-3">
+        <label for="question_min_score">Min Score: </label>
+        <%= number_field_tag 'question[min_score]', nil, min: 1, class: 'form-control', required: true %>
+      </div>
+      <div class="col-3">
+        <label for="question_max_score">Max Score: </label>
+        <%= number_field_tag 'question[max_score]', nil, min: 1, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+      <div class="col-3">
+        <%= hidden_field_tag 'question[task_id]', review_task.id %>
+        <button type="submit" class="btn btn-secondary btn-block">Add</button>
+      </div>
+    </div>
   </div>
 <% end %>
