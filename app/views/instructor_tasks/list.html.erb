@@ -1,5 +1,18 @@
-<h1>Your courses</h1>
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></head>
 
+<h1 class="changecolor">Your courses</h1>
+<input type="color" id="html5colorpicker" onchange="colorChanged()" value="#00ff00">
+<script>
+  function colorChanged(){
+     var elements = document.getElementsByClassName('changecolor');
+     var col = document.getElementById('html5colorpicker').value;
+    for(var i=0;i<elements.length;i++){
+        elements[i].style.backgroundColor = col;
+    }
+  }
+
+</script>
 <table>
   <thead>
     <tr>
@@ -11,17 +24,19 @@
   <tbody>
     <% @courses.each do |course| %>
       <tr bgcolor = '#8fbc8f'>
-        <td><%= course.title %></td>
-        <td><%= link_to 'Show', course %></td>
-        <td><%= link_to 'Edit', edit_course_path(course) %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'New Submission Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"SubmissionTask" %></td>
-        <td><%= link_to 'Manage Participants', courses_list_users_path(:id => course.id) %></td>
+          <td class="jumbotron"><%= course.title %></td>
+
+        <td> <i class="material-icons">remove_red_eye</i><%= link_to 'Show',  course %></td>
+        <td><i class="material-icons">edit</i><%= link_to 'Edit', edit_course_path(course) %></td>
+        <td><i class="material-icons">delete_forever</i><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><i class="material-icons">add</i><%= link_to 'New Submission Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"SubmissionTask" %></td>
+        <td><i class="material-icons">group</i><%= link_to 'Manage Participants', courses_list_users_path(:id => course.id) %></td>
       </tr>
       <% tasks = course.submission_tasks %>
       <% tasks.each do |task| %>
-        <tr bgcolor="#ffffe0">
-          <td><%= link_to task.title, edit_task_path(task) %></td>
+
+        <tr bgcolor="#ffffe0"; color = "#000000">
+          <td class="card"><%= link_to task.title, edit_task_path(task) %></td>
           <%if task.review_tasks.empty? %>
             <td><%= link_to 'New Review Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"ReviewTask", :reviewed_task_id => task.id %></td>
           <% else %>
