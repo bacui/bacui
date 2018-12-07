@@ -80,3 +80,7 @@ gem 'rails-ujs', '~> 0.1.0'
 gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 gem 'acts_as_list'
 gem 'record_tag_helper', '~> 1.0'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.8'
+end
