@@ -12,57 +12,144 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <table class="table">
+    <tbody>
+	  <tr>
+      <div class ="field input-group">
+	     <td>
+  <div class = "input-group-prepend">
+    <span class = "input-group-text">
+    Title
+    </span>
   </div>
 
+       </td>
+      <td>
+           <%= form.text_field :title , :class => 'form-control'%>
+
+      </td>
+      </div>
+    </tr>
   <%= hidden_field_tag "task[course_id]", @task.course_id %>
   <%= hidden_field_tag "task[type]", @task.type %>
   <%= hidden_field_tag "task[reviewed_task_id]", @task.reviewed_task_id %>
-
+<tr>
   <% if @task.instance_of? ReviewTask %>
-    <div class="field">
-      <%= form.label :num_reviewed_artifacts %>
-      <%= form.select(:num_reviewed_artifacts, options_for_select([2,3,4,5], @task.num_reviewed_artifacts)) %>
-    </div>
 
-    <div class="field">
-      <%= form.label :include_self_review %>
-      <%= form.check_box :include_self_review %>
+    <div class ="field input-group">
+      <td>
+        <div class = "input-group-prepend">
+    <span class = "input-group-text">
+    Num reviewed artifacts
+    </span>
+        </div>
+
+      </td>
+      <td>
+      <%= form.select :num_reviewed_artifacts, options_for_select([2,3,4,5], @task.num_reviewed_artifacts) , {} ,{:class => 'custom-select'} %>
+      </td>
     </div>
+    </tr>
+    <tr>
+      <div class ="field input-group">
+      <td>
+        <div class = "input-group-prepend">
+    <span class = "input-group-text">
+      Include self review
+    </span>
+        </div>
+
+      </td>
+      <td>
+      <%= form.check_box :include_self_review %>
+      </td>
+    </div>
+    </tr>
   <% else %>
     <%= hidden_field_tag "task[num_reviewed_artifacts]", @task.num_reviewed_artifacts %>
     <%= hidden_field_tag "task[include_self_review]", @task.include_self_review %>
-    <div class="field">
-      <%= form.label :team_size %>
-      <%= form.select(:team_size, options_for_select([1, 2, 3, 4, 5], @task.num_reviewed_artifacts)) %>
+    <tr>
+      <div class ="field input-group">
+      <td>
+        <div class = "input-group-prepend">
+    <span class = "input-group-text">
+      Team size
+    </span>
+        </div>
+
+      </td>
+      <td>
+      <%= form.select(:team_size, options_for_select([1, 2, 3, 4, 5], @task.num_reviewed_artifacts )) %>
+      </td>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+</tr>
+  <tr>
+    <div class ="field input-group">
+    <td>
+      <div class = "input-group-prepend">
+    <span class = "input-group-text"> Description
+    </span>
+      </div>
+    </td>
+    <td>
+    <%= form.text_area :description , :class => 'form-control'%>
+    </td>
   </div>
+  </tr>
+  <tr>
+    <div class ="field input-group">
+    <td>
+      <div class = "input-group-prepend">
+    <span class = "input-group-text">
+      Starts at
+    </span>
+      </div>
 
-  <div class="field">
-    <%= form.label :starts_at %>
-    <%= form.datetime_select :starts_at %>
+    </td>
+    <td>
+      <%= form.datetime_select :starts_at %>
+    </td>
   </div>
-
-  <div class="field">
-    <%= form.label :ends_at %>
+  </tr>
+  <tr>
+    <div class ="field input-group">
+    <td>
+      <div class = "input-group-prepend">
+    <span class = "input-group-text">
+        Ends at
+    </span>
+      </div>
+    </td>
+    <td>
     <%= form.datetime_select :ends_at %>
+    </td>
   </div>
+  </tr>
+   <tr>
+     <div class ="field input-group">
+    <td>
+      <div class = "input-group-prepend">
+    <span class = "input-group-text">
+      Archived
+    </span>
+      </div>
 
-  <div class="field">
-    <%= form.label :archived %>
+    </td>
+    <td>
     <%= form.check_box :archived %>
+    </td>
   </div>
-
+   </tr>
+  <tr>
   <div class="actions">
-    <%= form.submit %>
+    <td></td>
+    <td>
+    <%= form.submit "Update Task", :class => "btn btn-info" %>
+    </td>
   </div>
+
+  </tr>
+  </tbody>
+  </table>
 <% end %>
-
-

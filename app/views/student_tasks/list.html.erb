@@ -1,58 +1,69 @@
-<h1>StudentTasks#list</h1>
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></head>
+<input type="color" id="html5colorpicker" onchange="colorChanged()" value="#00ff00">
 
-<table>
 
-  <thead>
-  <tr>
-    <th>Course title</th>
-    <th>Task type</th>
-    <th>Task title</th>
-    <th>Due at</th>
-    <th>Action</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @courses.each do |course| %>
-    <tr>
-      <td><%=course.title %></td>
-    </tr>
-    <%course.tasks.each do |task| %>
-      <tr>
-        <td>
-        </td>
-        <td>
-          <%=task.title %>
-        </td>
-        <td>
-          <%=task.type %>
-        </td>
-        <td>
-          <%=task.ends_at %>
-        </td>
-        <td>
-          <% if task.is_a? SubmissionTask %>
-            <% actor_for_submission_task = current_user.actor_by_task(task.id, SubmissionTask) %>
-            <% if task.team_size>1 %>
-              <%= link_to "Your team", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
-              <%= link_to "Your team", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
-            <% else %>
-              <%= link_to "Your submitter profile", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
-              <%= link_to "Your submitter profile", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
-            <% end %>
-            <% if logged_in?(:student) and actor_for_submission_task and actor_for_submission_task.artifacts.empty? %>
-              <%= link_to "Your work", new_artifact_path(:author_actor_id =>actor_for_submission_task.id) %>
-            <% elsif logged_in?(:student) and actor_for_submission_task and not actor_for_submission_task.artifacts.empty? %>
-              <%= link_to "Your work", edit_artifact_path(actor_for_submission_task.artifacts.first ,:author_actor_id =>actor_for_submission_task.id) %>
-            <% end %>
-          <% else %>
-            Artifacts to review
-            Submit your review
-          <% end %>
-        </td>
-      </tr>
-      <tr>
+<h1 class="changecolor">Student Tasks List</h1>
+<script>
+    function colorChanged(){
+        var elements = document.getElementsByClassName('changecolor');
+        var col = document.getElementById('html5colorpicker').value;
+        for(var i=0;i<elements.length;i++){
+            elements[i].style.backgroundColor = col;
+        }
+    }
+
+</script>
+<% @courses.each do |course| %>
+      <div class="jumbotron">
+        <%=course.title %>
+        <br><br>
+        <%course.tasks.each do |task| %>
+        <div class="card">
+          <div class = "card-header">
+            <%=task.title %>
+          </div>
+
+          <div class="card-body">
+            <div class = "card">
+              <div class="card-body">
+              <strong>Type:</strong>  <%=task.type %>
+              </div>
+            </div>
+
+            <div class = "card">
+              <div class="card-body">
+                <strong>Due At:</strong>  <%=task.ends_at %>
+              </div>
+            </div>
+
+            <div class = "card">
+              <div class="card-body">
+                <strong>Actions:</strong> <% if task.is_a? SubmissionTask %>
+                  <% actor_for_submission_task = current_user.actor_by_task(task.id, SubmissionTask) %>
+                  <% if task.team_size>1 %><i class="material-icons">group</i>
+                    <%= link_to "Your team", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
+                    <%= link_to "Your team", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
+                  <% else %><i class="material-icons">person</i>
+                    <%= link_to "Your submitter profile", new_actor_path(:task_id =>task.id) if logged_in?(:student) and !actor_for_submission_task %>
+                    <%= link_to "Your submitter profile", edit_actor_path(actor_for_submission_task) if logged_in?(:student) and current_user.actor_by_task(task.id, SubmissionTask) %>
+                  <% end %><i class="material-icons">work</i>
+                  <% if logged_in?(:student) and actor_for_submission_task and actor_for_submission_task.artifacts.empty? %>
+                    <%= link_to "Your work", new_artifact_path(:author_actor_id =>actor_for_submission_task.id) %>
+                  <% elsif logged_in?(:student) and actor_for_submission_task and not actor_for_submission_task.artifacts.empty? %>
+                    <%= link_to "Your work", edit_artifact_path(actor_for_submission_task.artifacts.first ,:author_actor_id =>actor_for_submission_task.id) %>
+                  <% end %>
+                <% else %>
+                  Artifacts to review
+                  Submit your review
+                <% end %>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+          <br>
     <% end %>
+      </div>
   <% end %>
-  </tbody>
-</table>

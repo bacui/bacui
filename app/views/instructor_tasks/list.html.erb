@@ -1,38 +1,63 @@
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></head>
+
 <h1>Your courses</h1>
+<style>
+  .links:hover{
+    color: #5c8a00 !important;
+  }
+</style>
+<script>
+  function colorChanged(className,colorPickerId){
+     var elements = document.getElementsByClassName(className);
+     var col = document.getElementById(colorPickerId).value;
+    for(var i=0;i<elements.length;i++){
+        elements[i].style.backgroundColor = col;
+    }
+  }
+  $(function(){
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <% unique_id = 0 %>
     <% @courses.each do |course| %>
-      <tr bgcolor = '#8fbc8f'>
-        <td><%= course.title %></td>
-        <td><%= link_to 'Show', course %></td>
-        <td><%= link_to 'Edit', edit_course_path(course) %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'New Submission Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"SubmissionTask" %></td>
-        <td><%= link_to 'Manage Participants', courses_list_users_path(:id => course.id) %></td>
-      </tr>
-      <% tasks = course.submission_tasks %>
-      <% tasks.each do |task| %>
-        <tr bgcolor="#ffffe0">
-          <td><%= link_to task.title, edit_task_path(task) %></td>
-          <%if task.review_tasks.empty? %>
-            <td><%= link_to 'New Review Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"ReviewTask", :reviewed_task_id => task.id %></td>
-          <% else %>
-            <td> <%= link_to task.review_tasks.first.title, edit_task_path(task.review_tasks.first)%></td>
-            <td> <%= link_to "Edit Review Rubric", questions_edit_questionnaire_path(:review_task_id => task.review_tasks.first.id)%></td>
-          <% end %>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+      <div bgcolor = '#8fbc8f'>
+          <div class="jumbotron changeColor<%= unique_id = unique_id + 1 %>">
+            <%= course.title %><input type="color" id="html5colorpicker<%=unique_id %>" onchange="colorChanged('changeColor<%= unique_id %>','html5colorpicker<%=unique_id %>')" value="#00ff00">
+            <br>
+            <% tasks = course.submission_tasks %>
+            <br>
+            <% tasks.each do |task| %>
+
+              <div bgcolor="#ffffe0"; color = "#000000">
+                <div class="card">
+                  <div class="card-header">
+                    <%= link_to task.title, edit_task_path(task),{:style => 'color:#000011', :class => 'links'} %>
+                  </div>
+                  <div class = "card-body">
+                    <%if task.review_tasks.empty? %>
+                      <span class = "btn btn-info"><%= link_to 'New Review Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"ReviewTask", :reviewed_task_id => task.id %></span>
+                    <% else %>
+                      <span> <%= link_to task.review_tasks.first.title, edit_task_path(task.review_tasks.first), :class => 'btn btn-info' %></span>
+                      <span> <%= link_to "Edit Review Rubric", questions_edit_questionnaire_path(:review_task_id => task.review_tasks.first.id),  :class => 'btn btn-info'  %></span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <br>
+            <% end %>
+            <div>
+              <i class="material-icons" >remove_red_eye</i><%= link_to 'Show',  course %>
+              <i class="material-icons">edit</i><%= link_to 'Edit', edit_course_path(course) %>
+              <i class="material-icons" >delete_forever</i><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <i class="material-icons">add</i><%= link_to 'New Submission Task', :controller => "tasks", :action => "new", :course_id => course.id, :type =>"SubmissionTask" %>
+              <i class="material-icons">group</i><%= link_to 'Manage Participants', courses_list_users_path(:id => course.id) %>
+            </div>
+
+          </div>
+      </div>
+  <% end %>
 
 <br>
 

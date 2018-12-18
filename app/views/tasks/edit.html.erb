@@ -1,6 +1,13 @@
 <h1>Editing Task</h1>
 
 <%= render 'form', task: @task %>
+<table class="table">
+  <tbody>
+  <tr>
+    <td>
+<%= link_to 'Show', @task %>  |   <%= link_to 'Back', tasks_path %>
+    </td>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+  </tr>
+  </tbody>
+</table>
