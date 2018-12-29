@@ -1,0 +1,2 @@
+class NominationQuestion < Question
+end
