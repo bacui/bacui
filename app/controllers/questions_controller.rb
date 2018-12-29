@@ -31,6 +31,6 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :description, :qtype, :weight, :min_score, :max_score, :task_id)
+    params.require(:question).permit(:title, :description, :type, :weight, :min_score, :max_score, :task_id)
   end
 end

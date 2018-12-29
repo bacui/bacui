@@ -11,7 +11,7 @@
   </thead>
 
   <tbody>
-  <% questions = @questions.select{|x| x.qtype == 'nomination'}%>
+  <% questions = @questions.select{|x| x.type == 'NominationQuestion'}%>
   <% questions.each_with_index do | question, index | %>
     <tr>
       <td><div id="questions"><%= index + 1 %></div></td>
@@ -32,7 +32,7 @@
   </thead>
 
   <tbody>
-  <% questions = @questions.select{|x| x.qtype == 'textual_feedback'}%>
+  <% questions = @questions.select{|x| x.type == 'TextualFeedbackQuestion'}%>
   <% questions.each_with_index do | question, index | %>
     <tr>
       <td><div id="questions"><%= index + 1 %></div></td>
@@ -43,13 +43,13 @@
 </table> -->
 <div id="questions" class="list-group" data-url="<%= sort_questions_path %>">
   <h5>Nomination Questions</h5>
-  <% questions = @questions.select{|x| x.qtype == 'nomination'}%>
+  <% questions = @questions.select{|x| x.type == 'NominationQuestion'}%>
   <% questions.each do | question | %>
     <li class="list-group-item" id="<%= dom_id(question) %>"><%= question.description %></li>
   <% end %>
   <br>
   <h5>Textual Feedback Questions</h5>
-  <% questions = @questions.select{|x| x.qtype == 'textual_feedback'}%>
+  <% questions = @questions.select{|x| x.type == 'TextualFeedbackQuestion'}%>
   <% questions.each do | question | %>
     <li class="list-group-item" id="<%= dom_id(question) %>"><%= question.description %></li>
   <% end %>

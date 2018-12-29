@@ -13,12 +13,12 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-3">
-        <%= radio_button_tag "question[qtype]", "nomination", checked = true, class: "mr-md-4" %>
-        <label for="question_qtype_nomination">Nomination</label>
+        <%= radio_button_tag "question[type]", "NominationQuestion", checked = true, class: "mr-md-4" %>
+        <label for="question_type_nomination">Nomination</label>
       </div>
       <div class="col-3">
-        <%= radio_button_tag "question[qtype]", "textual_feedback", checked = false, class: "mr-md-4" %>
-        <label for="question_qtype_textual_feedback">Textual Feedback</label>
+        <%= radio_button_tag "question[type]", "TextualFeedbackQuestion", checked = false, class: "mr-md-4" %>
+        <label for="question_type_textual_feedback">Textual Feedback</label>
       </div>
     </div>
     <div class="row justify-content-center">
