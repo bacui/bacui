@@ -8,10 +8,12 @@ class QuestionsController < ApplicationController
   end
 
   def sort
-    # respond_to do |format|
-      params[:question].each_with_index do |id, index|
-        Question.where(id: id).update_all(position: index + 1)
-    #  end
+    params[:nomination_question].each_with_index do |id, index|
+      Question.where(id: id).update_all(position: index + 1)
+    end
+
+    params[:textual_feedback_question].each_with_index do |id, index|
+      Question.where(id: id).update_all(position: index + 1)
     end
 
     head :ok
