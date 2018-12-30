@@ -22,6 +22,9 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+# Use will_paginate to display pagination lists in views
+gem 'will_paginate', '~>3.1.1'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -72,3 +75,12 @@ gem 'bootstrap', '~> 4.1.3'
 # Jquery
 gem 'jquery-rails', '~> 4.3', '>=4.3.3'
 gem 'rails-ujs', '~> 0.1.0'
+
+# Use jquery-ui-rails and acts-as-list gem to add a drag and drop slider
+gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
+gem 'acts_as_list'
+gem 'record_tag_helper', '~> 1.0'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.8'
+end
