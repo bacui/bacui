@@ -1,12 +1,15 @@
 class QuestionsController < ApplicationController
   access instructor: [:edit_questionnaire, :add_question, :sort], instructor_pending: [:edit_questionnaire, :add_question, :sort], admin: :all
 
+  # Show all the questions in a review task and allow the user to add more questions.
   def edit_questionnaire
     @questions = Question.where(task_id: params[:review_task_id])
     @questions = @questions.order(:position)
     @review_task = ReviewTask.find(params[:review_task_id])
   end
 
+  # Save the position for all the questions in a review_task.
+  # Triggered by "sort_questions_path" in edit_questionnaire.html.erb
   def sort
     params[:nomination_question].each_with_index do |id, index|
       Question.where(id: id).update_all(position: index + 1)
