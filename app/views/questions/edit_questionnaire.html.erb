@@ -1,3 +1,56 @@
-<p id="notice"><%= notice %></p>
+<%= render 'form', review_task: @review_task %>
 
-<h1>Your review questionnaire for task "<%= @review_task.title%>" </h1>
+<br><br>
+<!-- <h5>Nomination Questions</h5>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+  <tr>
+    <th>Serial No.</th>
+    <th>Question</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% questions = @questions.select{|x| x.type == 'NominationQuestion'}%>
+  <% questions.each_with_index do | question, index | %>
+    <tr>
+      <td><div id="questions"><%= index + 1 %></div></td>
+      <td><div id="questions"><%= question.description %></div></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<
+
+<h5>Textual Feedback Questions</h5>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+  <tr>
+    <th>Serial No.</th>
+    <th>Question</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% questions = @questions.select{|x| x.type == 'TextualFeedbackQuestion'}%>
+  <% questions.each_with_index do | question, index | %>
+    <tr>
+      <td><div id="questions"><%= index + 1 %></div></td>
+      <td><div id="questions"><%= question.description %></div></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table> -->
+<div id="questions" class="list-group" data-url="<%= sort_questions_path %>">
+  <h5>Nomination Questions</h5>
+  <% questions = @questions.select{|x| x.type == 'NominationQuestion'}%>
+  <% questions.each do | question | %>
+    <li class="list-group-item" id="<%= dom_id(question) %>"><%= question.description %></li>
+  <% end %>
+  <br>
+  <h5>Textual Feedback Questions</h5>
+  <% questions = @questions.select{|x| x.type == 'TextualFeedbackQuestion'}%>
+  <% questions.each do | question | %>
+    <li class="list-group-item" id="<%= dom_id(question) %>"><%= question.description %></li>
+  <% end %>
+</div>

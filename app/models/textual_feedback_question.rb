@@ -1,0 +1,2 @@
+class TextualFeedbackQuestion < Question
+end

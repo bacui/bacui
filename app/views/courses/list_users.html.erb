@@ -1,5 +1,11 @@
 <h1>Participants in Course "<%=@course.title %>"</h1>
 
+<%= form_tag :controller => 'courses', :action => 'add_user', :method => 'post' do %>
+  <%= hidden_field_tag 'id', @course.id %>
+  Enter a user's registered Email: <%= text_field :user, :email, {:size => 20, :class => "form-control", :style => "width: 250px"} %>
+  <input type='submit' value='Add' class="btn btn-sm btn-secondary"/>
+<% end %>
+
 <table>
   <thead>
   <tr>
@@ -18,12 +24,13 @@
     <% end %>
   <tbody>
 
-  <%= form_tag "add_user", :id => "part_add", :method => 'post', :class => "form-inline", :remote => true do %>
-    Enter a user's registered Email: <%= text_field :user, :email, {:size => 20, :class => "form-control", :style => "width: 250px"} %>
-    <%= hidden_field_tag "id", @course.id%>
-    <input id='add' type='submit' value='Add' class="btn btn-md btn-default" />
-  <% end %>
-
+  <%#= form_tag "add_user", :id => "part_add", :method => 'post', :class => "form-inline", :remote => true do %>
+<!--    Enter a user's registered Email: <%#= text_field :user, :email, {:size => 20, :class => "form-control", :style => "width: 250px"} %>-->
+    <%#= hidden_field_tag "id", @course.id%>
+<!--    <input id='add' type='submit' value='Add' class="btn btn-md btn-default" />-->
+  <%# end %>
 </table>
+
+
 
 

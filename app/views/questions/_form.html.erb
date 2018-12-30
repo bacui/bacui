@@ -1,0 +1,46 @@
+<%= form_tag :controller => 'questions', :action => 'add_question', :method => 'post' do %>
+  <div class="container">
+    <div class="row mb-2 justify-content-center">
+      <div class="col-6">
+        <br>
+        <h5>Add a new Question: </h5>
+        <label for="question_title">Title: </label>
+        <%= text_field_tag 'question[title]', '', required: true, class: 'form-control'%>
+        <br>
+        <label for="question_description">Description: </label>
+        <%= text_area_tag 'question[description]', nil, class: 'form-control mr-md-4', name: 'question[description]', required: true %>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-3">
+        <%= radio_button_tag "question[type]", "NominationQuestion", checked = true, class: "mr-md-4" %>
+        <label for="question_type_nomination">Nomination</label>
+      </div>
+      <div class="col-3">
+        <%= radio_button_tag "question[type]", "TextualFeedbackQuestion", checked = false, class: "mr-md-4" %>
+        <label for="question_type_textual_feedback">Textual Feedback</label>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-3">
+        <label for="question_weight">Weight: </label>
+        <%= number_field_tag 'question[weight]', nil, min: 1, class: 'form-control', required: true %>
+      </div>
+      <div class="col-3">
+        <label for="question_min_score">Min Score: </label>
+        <%= number_field_tag 'question[min_score]', nil, min: 1, class: 'form-control', required: true %>
+      </div>
+      <div class="col-3">
+        <label for="question_max_score">Max Score: </label>
+        <%= number_field_tag 'question[max_score]', nil, min: 1, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+      <div class="col-3">
+        <%= hidden_field_tag 'question[task_id]', review_task.id %>
+        <button type="submit" class="btn btn-secondary btn-block">Add</button>
+      </div>
+    </div>
+  </div>
+<% end %>

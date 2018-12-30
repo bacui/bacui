@@ -67,24 +67,37 @@ class CoursesController < ApplicationController
       end
 
       begin
-        user = User.where(email: params["user"]["email"]).first
+        user = User.find_by_email(params["user"]["email"])
+        if (user.nil?)
+          error_message = 'No user with email ' + params["user"]["email"] + ' is registered'
+          raise "error"
+        end
 
-        new_user_course = UserCourse.create(user_id: user.id, course_id: @course.id)
-        if user.nil?
-          error_message = "No such user with email: " + params["user"]["email"]
-        elsif new_user_course.save
-          format.html { redirect_to({controller: "courses", action: "list_users", id: @course.id}, notice: (user.first_name + ' '+ user.last_name + ' has been added successfully.')) }
-          # if the save does not work, the db will roll back without raising an error
+        user_course = UserCourse.where(user_id: user.id, course_id: @course.id)
+        if (!user_course.empty?)
+          error_message = 'User ' + user.first_name + ' ' + user.last_name + ' is already enrolled in the course.'
+          raise "error"
+        end
+
+        instructor = User.find(@course.instructor_id)
+        user_courses = UserCourse.where(course_id: @course.id)
+        if (instructor.role == :instructor_pending && user_courses.length >= 10)
+          error_message = 'A pending instructor can add only upto 10 students per course'
+          raise "error"
+        end
+
+        user_course = UserCourse.new(user_id: user.id, course_id: @course.id)
+        if (user_course.save)
+          message = user.first_name + ' '+ user.last_name + ' has been added successfully.'
+          format.html { redirect_to({controller: "courses", action: "list_users", id: @course.id}, notice: message ) }
         else
-          error_message = user.first_name + ' '+ user.last_name + ' is already in this course.'
-          # raise an error to be caught in the rescue block
+          error_message = user.first_name + ' '+ user.last_name + ' could not be added to the course due to internal error.'
           raise "error"
         end
       rescue
         format.html { redirect_to({controller: "courses", action: "list_users", id: @course.id}, alert: error_message) }
       end
     end
-
   end
 
   private
